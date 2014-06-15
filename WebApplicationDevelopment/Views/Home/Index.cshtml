@@ -3,9 +3,9 @@
 }
 
 <div class="jumbotron">
-    <h1>Bear Market Analysis</h1>
+    <h1>Bull Market Analysis</h1>
     <p class="lead">Bear Market Analysis is the premier site to monitor your portfolio and track securities of interest.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p><a href="~/Account/Register.cshtml" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
 <div class="row">
@@ -14,16 +14,16 @@
         <p>
             Simply register for free, add your stocks, and expand your potential!
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        @Html.ActionLink("Begin Here", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
     </div>
     <div class="col-md-4">
         <h2>Philosophy</h2>
         <p>We belive in providing the latest data about your portfolio while protecting your information.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        @Html.ActionLink("What We Belive", "About", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
     </div>
     <div class="col-md-4">
         <h2>Contact us</h2>
         <p>We are always willing to provide any other information you desire.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        @Html.ActionLink("Speak to Us", "Contact", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
     </div>
 </div>
