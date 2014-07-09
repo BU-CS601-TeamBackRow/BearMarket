@@ -180,7 +180,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Views\Home\Images\BThompson.jpg" />
     <Content Include="Views\Home\Images\BullMarket.png" />
+    <Content Include="Views\Home\Images\DCole.jpg" />
+    <Content Include="Views\Home\Images\JTGreen.jpg" />
+    <Content Include="Views\Home\Images\TMerrell.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
