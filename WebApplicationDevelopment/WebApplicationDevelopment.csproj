@@ -180,11 +180,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Views\Home\Images\BThompson.jpg" />
-    <Content Include="Views\Home\Images\BullMarket.png" />
-    <Content Include="Views\Home\Images\DCole.jpg" />
-    <Content Include="Views\Home\Images\JTGreen.jpg" />
-    <Content Include="Views\Home\Images\TMerrell.jpg" />
+    <Content Include="Content\Images\BThompson.jpg" />
+    <Content Include="Content\Images\BullMarket.png" />
+    <Content Include="Content\Images\DCole.jpg" />
+    <Content Include="Content\Images\JTGreen.jpg" />
+    <Content Include="Content\Images\TMerrell.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -231,7 +231,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\MyAccounts.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\App_LocalResources\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
