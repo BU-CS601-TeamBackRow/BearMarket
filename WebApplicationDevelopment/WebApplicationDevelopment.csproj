@@ -171,21 +171,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Stocks.mdf" />
-    <Content Include="App_Data\Stocks_log.ldf">
-      <DependentUpon>Stocks.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\originalbootstrap.css" />
     <Content Include="Content\originalbootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\Images\BThompson.jpg" />
-    <Content Include="Content\Images\BullMarket.png" />
-    <Content Include="Content\Images\DCole.jpg" />
-    <Content Include="Content\Images\JTGreen.jpg" />
-    <Content Include="Content\Images\TMerrell.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -238,6 +229,7 @@
     <Content Include="Views\Stocks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\App_LocalResources\" />
   </ItemGroup>
   <ItemGroup>

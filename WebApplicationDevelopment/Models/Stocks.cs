@@ -8,7 +8,7 @@ namespace WebApplicationDevelopment.Models
     {
         [Key]
         public String symbol { get; set; }
-        public float currentPrice { get; set;}
+        public float lastPrice { get; set;}
     }
 
     public class StocksDBContext : DbContext

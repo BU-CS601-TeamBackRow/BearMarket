@@ -18,7 +18,11 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.currentPrice)
+                <p>Symbol</p>
+            </th>
+
+            <th>
+                <p>Last Price</p>
             </th>
             <th></th>
         </tr>
@@ -26,7 +30,11 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.currentPrice)
+                @Html.DisplayFor(model => item.symbol)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.lastPrice)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.symbol }) |
