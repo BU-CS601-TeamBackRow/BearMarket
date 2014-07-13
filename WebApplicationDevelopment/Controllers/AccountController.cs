@@ -430,6 +430,39 @@ namespace WebApplicationDevelopment.Controllers
             return View(model);
         }
 
+        // GET: /Account/MyAccount
+        public ActionResult MyAccounts()
+        {
+            ViewBag.Message = "Your Account Management Page.";
+            return View();
+        }
+
+        //
+        /* POST: /Account/MyAccount
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                if (user != null)
+                {
+                    await SignInAsync(user, model.RememberMe);
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        */
+
+
+
         //
         // POST: /Account/LogOff
         [HttpPost]

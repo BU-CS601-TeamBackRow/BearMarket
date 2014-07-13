@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Manage Your Account";
+}
+<h2>@ViewBag.Title.</h2>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#portfolio" role="tab" data-toggle="tab">Portfolio</a></li>
+    <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+    <li><a href="#preferences" role="tab" data-toggle="tab">Preferences</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="portfolio">...</div>
+    <div class="tab-pane" id="profile">...</div>
+    <div class="tab-pane" id="preferences">...</div>
+</div>
+
+@Scripts.Render("~/bundles/AccountTabs")
