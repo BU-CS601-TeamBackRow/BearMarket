@@ -46,7 +46,7 @@ namespace WebApplicationDevelopment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "symbol,currentPrice")] Stocks stocks)
+        public ActionResult Create([Bind(Include = "symbol,lastPrice")] Stocks stocks)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace WebApplicationDevelopment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "symbol,currentPrice")] Stocks stocks)
+        public ActionResult Edit([Bind(Include = "symbol,lastPrice")] Stocks stocks)
         {
             if (ModelState.IsValid)
             {

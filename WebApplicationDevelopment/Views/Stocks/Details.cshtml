@@ -17,11 +17,19 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.currentPrice)
+                @Html.DisplayNameFor(model => model.symbol)
+            </dt>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.lastPrice)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.currentPrice)
+                @Html.DisplayFor(model => model.symbol)
+            </dd>
+
+            <dd>
+                @Html.DisplayFor(model => model.lastPrice)
             </dd>
     
         </dl>
