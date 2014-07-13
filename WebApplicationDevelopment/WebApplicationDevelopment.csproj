@@ -177,6 +177,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\AccountTabs.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -221,7 +222,7 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\MyAccounts.cshtml" />
+    <Content Include="Views\Account\MyAccounts.cshtml" />
     <Content Include="Views\Stocks\Create.cshtml" />
     <Content Include="Views\Stocks\Delete.cshtml" />
     <Content Include="Views\Stocks\Details.cshtml" />
