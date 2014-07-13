@@ -1,13 +1,12 @@
 ﻿@{
-    ViewBag.Title = "About Bull Market Analysis";
+    ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>About Us</h2>
+
 
 <!------------- BACKGROUND GRAPHIC ----------------------->
-<div style="background-image: url('Images/BullMarket.png'); background-size:100%; height: 650px; width: 975px; margin-top:0px; background-repeat: no-repeat;">
-    <div class="form-group" style="position:relative; top: 370px; left: 40px;"></div>
-</div>
+
+<img src="@Server.MapPath("~/Images/BullMarket.png")" alt="BullMarket Bull" />
 
 <br />
 <br />
@@ -15,24 +14,93 @@
 <!-------------------- QUOTE ----------------------------->
 <blockquote>
     <p>“Bull Market Analysis is the most user-friendly market watch tool that I have ever used. I just log in and watch my money grow."</p>
-    <small>Trent Merrell</small>
+    <small>T. William Merrell, Esq.</small>
 </blockquote>
 
-<h3>What is a Bull Market Analysis?</h3>
-    <p>This is where we put a description of our app and what it does...</p>
+<br />
 
+
+<!-------------------- WEB-APP DESCRIPTION ---------------->
+<h3>How BullMarket Analysis started...</h3>
+<p>Add the history of the concept</p>
+<p>CS601 - BackRow Group history?</p>
+
+
+<br />
+<br />
+
+<!-------------------- TEAM INFORMATION ------------------->
 <h3>The Bull Market Analysis Team:</h3>
 
-    <div class="panel panel-default panel-info">
-        <div class="panel-heading">
-            Brandon Thompson
-        </div>
-        
-        <div class="panel-body">
-            <div style="float:left; height:100%">
-                <img runat="server" style="width:2.70in" src="_____" />
-                <p>Information about Brandon</p>
-            </div>
+
+<!-------------------- BRANDON ----------------------------->
+<div class="panel panel-default ">
+    <div class="panel-heading">
+        <strong>Brandon Thompson</strong>
+    </div>
+
+    <div class="panel-body">
+        <div style="float:left; height:100%">
+            <img style="width:2.70in" src="@Url.Content("~/Images/BThompson.jpg")" alt="BThompson" />
         </div>
 
+        <div style="margin-left: 2.8in">
+            <p>Brandon currently works as a Lead Engineer for the Upgraded Early Warning Radar group within the United States Air Force at Hanscom Air Force Base in Massachussets.</p>
+            <p>Among his duties as Lead Engineer, Brandon oversees the planning and execution of technical requirements on multiple ground based early warning radars, collaborates and evaluates hardware and software design elements during the migration of computer architectures ensuring the system meets all performance specifications, and leads the 12 man acquisition logistics team in evaluating and executing training, maintenance operations, and spare part procurement for the lifetime of the system.</p>
+        </div>
     </div>
+</div>
+
+<!-------------------- DAN ----------------------------->
+<div class="panel panel-default ">
+    <div class="panel-heading">
+        <strong>Dan Cole</strong>
+    </div>
+
+    <div class="panel-body">
+        <div style="float:left; height:100%">
+            <img runat="server" style="width:2.70in" src="@Url.Content("~/Images/DCole.jpg")" alt="DCole" />
+        </div>
+
+        <div style="margin-left: 2.8in">
+            <p>Dan currently works in Boston's Back Bay as a Development Manager at MacMillan, a privately held international publishing company.</p>
+            <p>As Development Manager, Dan manages the systems integration development team. Under Dan's direction, his development team has facilitated a company transition betweeen software development methodologies, integrated Macmillan systems with third-party applications, developed modules and database-driven Web applications using PHP, Classic ASP, Java, C# .NET, JavaScript, and libraries/APIs such as jQuery and CKeditor and has performed many other management tasks.</p>
+        </div>
+    </div>
+</div>
+
+<!-------------------- JT ----------------------------->
+<div class="panel panel-default ">
+    <div class="panel-heading">
+        <strong>JT Green</strong>
+    </div>
+
+    <div class="panel-body">
+        <div style="float:left; height:100%">
+            <img runat="server" style="width:2.70in" src="@Url.Content("~/Images/JTGreen.jpg")" alt="JTGreen" />
+        </div>
+
+        <div style="margin-left: 2.8in">
+            <p>JT currently works as a Project Engineer in the Upgraded Early Warning Radar group with the United States Air Force at Hanscom Air Force Base in Massachussets.</p>
+            <p>As a Project Engineer, JT supports UEWR system rehost to RHEL 6 OS as the Software IPT Lead, manages a Software Deficiency team focused towards resolution of software defects, acts as technical lead to threat database upgrade - supporting Ballistic Missile Defense System (BMDS) objectives, contributes to multiple test reviews and events, implements technical requirements for STRATCOM, NORTHCOM, Missile Defense Agency, and AFSPC, and many other tasks.</p>
+        </div>
+    </div>
+</div>
+
+<!-------------------- TRENT ----------------------------->
+<div class="panel panel-default ">
+    <div class="panel-heading">
+        <strong>Trent Merrell</strong>
+    </div>
+
+    <div class="panel-body">
+        <div style="float:left; height:100%">
+            <img runat="server" style="width:2.70in" src="@Url.Content("~/Images/TMerrell.jpg")" alt="TMerrell" />
+        </div>
+
+        <div style="margin-left: 2.8in">
+            <p>Trent currently works as an Attorney and Patent Analyst with Global Patent Solutions in Scottsdale, Arizona.</p>
+            <p>As an Attorney and Patent Analyst, Trent works as a contracted International Search Agent for the United States Patent and Trademark Office (USPTO), wherein he analyzes international Patent Cooperation Treaty (PCT) patent applications, performs a non-binding patent examination, and drafts patentability opinions therefrom.</p>
+        </div>
+    </div>
+</div>
