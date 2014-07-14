@@ -171,6 +171,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\Fetcher.cs" />
+    <Compile Include="Utilities\Response.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\originalbootstrap.css" />
