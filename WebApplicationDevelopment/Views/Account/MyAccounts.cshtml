@@ -12,9 +12,126 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div class="tab-pane active" id="portfolio">...</div>
+    <div class="tab-pane active" id="portfolio">
+        
+        <!-- PANEL FOR CURRENT STOCKS OWNED -->
+        <div class="panel panel-default panel-success">
+            <div class="panel-heading">
+                Stocks Currently Owned:
+            </div>
+
+            <!-- PANEL BODY WITH ASP FILL-IN CONTENT USING THE FORM FOUND HEREIN-->
+            <div class="panel-body">
+                <asp:Label ID="lblNoStocksOwned" Text="User has not added any current stocks" runat="server" Visible="False"></asp:Label>
+                <table class="table table-striped table-hover">
+                    <asp:Repeater runat="server"
+                                  ID="CurrentStocksRepeater"
+                                  ItemType="Tuple<String, BullMarket.Models.CurrentStocks>">
+                        
+                        <headertemplate>
+                            <!-----------------------Table Headings----------------------------->
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name:</th>
+                                    <th>Symbol:</th>
+                                    <th>Initial Value:</th>
+                                    <th># Shares Owned:</th>
+                                    <th>Current Value:</th>
+                                    <th>Total Value Change:</th>
+                                    <th>Daily Value Change:</th>
+                                    <th>More Information:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        </headertemplate>
+
+                        <itemtemplate>
+                            <tr>
+                                <td><%#: Container.ItemIndex + 1 %></td>
+                                <td><%#: Item.Item2.CurrentStocks.Name></td>
+                                <td><%#: Item.Item2.CurrentStocks.Symbol %></td>
+                                <td><%#: Item.Item2.CurrentStocks.InitialValue %></td>
+                                <td><%#: Item.Item2.CurrentStocks.SharesOwned %></td>
+                                <td><%#: Item.Item2.CurrentStocks.CurrentValue %></td>
+                                <td><%#: Item.Item2.CurrentStocks.TotalValueChange %></td>
+                                <td><%#: Item.Item2.CurrentStocks.DailyValueChange %></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-xs btn-success"
+                                            onclick="javascript:location.href = 'CurrentStockID=<%#: Item.Item2.CurrentStock.StockID %>';">
+                                        Stock Page <!-- Link to Yahoo page here??? -->
+                                    </button>
+                                </td>
+                            </tr>
+                        </itemtemplate>
+                    </asp:Repeater>
+                </table>
+            </div> <!--End of Panel Body-->
+        </div> <!--End of CurrentStocks Panel-->
+
+
+        <!-- PANEL FOR PREVIOUS STOCKS OWNED -->
+        <div class="panel panel-default panel-danger">
+            <div class="panel-heading">
+                Stocks Previously Owned:
+            </div>
+
+            <!-- PANEL BODY WITH ASP FILL-IN CONTENT USING THE FORM FOUND HEREIN-->
+            <div class="panel-body">
+                <asp:Label ID="lblNoStocksRemoved" Text="User has not removed/sold any stocks" runat="server" Visible="False"></asp:Label>
+                <table class="table table-striped table-hover">
+                    <asp:Repeater runat="server"
+                        ID="PreviousStocksRepeater"
+                        ItemType="Tuple<String, bullmarket.Models.PreviousStocks>"> <!--Need to add our databased names-->
+                            
+                            <headertemplate>
+                                <!-----------------------Table Headings----------------------------->
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name:</th>
+                                        <th>Symbol:</th>
+                                        <th>Initial Value:</th>
+                                        <th># Shares Sold:</th>
+                                        <th>Value at Sale:</th>
+                                        <th>Total Value Change:</th>
+                                        <th>Daily Value Change:</th>
+                                        <th>More Information:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            </headertemplate>
+
+                            <itemtemplate>
+                                <tr>
+                                    <td><%#: Container.ItemIndex + 1 %></td>
+                                    <td><%#: Item.Item2.CurrentStocks.Name></td>
+                                    <td><%#: Item.Item2.CurrentStocks.Symbol %></td>
+                                    <td><%#: Item.Item2.CurrentStocks.InitialValue %></td>
+                                    <td><%#: Item.Item2.CurrentStocks.SharesSold %></td>
+                                    <td><%#: Item.Item2.CurrentStocks.SaleValue %></td>
+                                    <td><%#: Item.Item2.CurrentStocks.TotalValueChange %></td>
+                                    <td><%#: Item.Item2.CurrentStocks.DailyValueChange %></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-xs btn-success"
+                                            onclick="javascript:location.href = 'CurrentStockID=<%#: Item.Item2.PreviousStock.StockID %>';">
+                                            Stock Page <!-- Link to Yahoo page here??? -->
+                                        </button>
+                                    </td>
+                                </tr>
+                            </itemtemplate>
+                    </asp:Repeater>
+                </table>
+            </div> <!--End of Panel Body-->
+        </div> <!--End of PreviousStocks Panel-->
+    </div> <!--End of Portfolio Tab-->
+
     <div class="tab-pane" id="profile">...</div>
+    
+
     <div class="tab-pane" id="preferences">...</div>
+
+
 </div>
 
 @Scripts.Render("~/bundles/AccountTabs")
