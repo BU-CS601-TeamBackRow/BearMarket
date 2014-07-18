@@ -13,7 +13,13 @@
 <!-- Tab panes -->
 <div class="tab-content">
     <div class="tab-pane active" id="portfolio">
-
+        <!----------------------Stock Looup------------------------------>
+        <div class="stock-lookup">
+            <p>
+                <input id="lookupSymbol" type="text" /><button onclick="javascript: lookupStock()">lookup</button>
+            </p>
+            <div id="quoteResults" class="lookup-quote-results" style="display:none;"></div>
+        </div>
         <!----------------------Current Stocks Owned -------------------->
         <div class="panel panel-default panel-success">
             <div class="panel-heading">

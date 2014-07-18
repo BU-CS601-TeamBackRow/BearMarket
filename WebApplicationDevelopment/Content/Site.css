@@ -15,3 +15,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.stock-lookup {
+    background-color: #EE6612;
+}
+
+.lookup-quote-results {
+    background-color: #EE6612;    
+}
