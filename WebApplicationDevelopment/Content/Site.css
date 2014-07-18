@@ -17,9 +17,63 @@ textarea {
 }
 
 .stock-lookup {
-    background-color: #EE6612;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #e47b36;
 }
 
 .lookup-quote-results {
-    background-color: #EE6612;    
+    padding: 20px;
+    background-color: #fff;
+}
+
+.quote-result-table {
+    border-collapse: collapse;
+    border-color: white;
+}
+.quote-result-label {
+    font-weight: bold;
+}
+
+.quote-results-options-div {
+    vertical-align: top;
+}
+
+.quote-result-cell {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.button_primary {
+    padding-left: 4pt;
+    padding-right: 4pt;
+    margin-left: 10px;
+    background-color: #110e40;
+    color: #fff;
+    font-size: 14pt;
+    font-weight: bold;
+    border:1pt solid #0f0189;
+    border-radius: 3px 4px;
+}
+
+.button_secondary {
+    padding-left: 4pt;
+    padding-right: 4pt;
+    margin-left: 10px;
+    background-color: #fff;
+    color: #6c6565;
+    font-size: 14pt;
+    font-weight: bold;
+    border:1pt solid #333131;
+    border-radius: 3px 4px;
+}
+
+.form_instrux_text {
+    color: #333131;
+    float: left;
+    min-width: 200px;
+    margin-left:10px;
+    font-weight: bold; 
+    font-size: 14pt;
 }
