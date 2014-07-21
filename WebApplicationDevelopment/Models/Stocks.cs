@@ -14,5 +14,7 @@ namespace WebApplicationDevelopment.Models
     public class StocksDBContext : DbContext
     {
         public  DbSet <Stocks> Stocks { get; set; }
+
+        public System.Data.Entity.DbSet<WebApplicationDevelopment.Models.Portfolio> Portfolios { get; set; }
     }
 }

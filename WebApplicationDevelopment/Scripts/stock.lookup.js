@@ -1,7 +1,39 @@
 ﻿function lookupStock() {
     var symbol = $("#lookupSymbol").val();
     var symbols = Array(symbol);
-    doLookup(symbols);
+    var data = doLookup(symbols);
+    var quoteResultsDiv = $("#quoteResults");
+    var quote = data.quote;
+    quoteResultsDiv.empty();
+    var quoteHTML = "<table><tr><td><table class='quote-result-table'>";
+    var counter = 0;
+    var symbol;
+    $.each(quote, function (key, val) {
+        if (key != 'symbol') {
+            var row;
+            if (counter % 2 != 0) {
+                row = "<tr style='background-color: #ccc;'>";
+            } else {
+                row = "<tr>";
+            }
+            quoteHTML += row;
+            quoteHTML += "<th class='quote-result-cell'><span class='quote-result-label'>" + key + "</span></th><td class='quote-result-cell'><span>" + val + "</span></td>";
+            counter++;
+        } else {
+            symbol = val;
+        }
+    });
+    quoteHTML += "</table></td><td><div id='quote-results-options-div' class='quote-results-options-div'>" + generateOptionsButtonsHTML(symbol) + "</td></tr></table>";
+    quoteResultsDiv.append(quoteHTML);
+    quoteResultsDiv.show();
+}
+
+function refreshPortfolio(symbols) {
+    var data = doLookup(symbols);
+    try { console.log(data) } catch (e) { };
+    //$.each(data.query.results, function (obj) {
+    //    try { console.log(obj) } catch (e) { };
+    //});
 }
 
 function doLookup(symbols) {
@@ -14,8 +46,9 @@ function doLookup(symbols) {
             query += '\'' + symbols[i] + '\'';
         }
     }
-    query += ')'
+    query += ')';
     var endPoint = baseUrl + '/v1/public/yql?q=' + escape(query) + '&diagnostics=true&env=' + escape('store://datatables.org/alltableswithkeys') + '&format=json';
+    alert(query);
     var request = $.ajax({
         url: endPoint,
         type: 'GET',
@@ -23,30 +56,7 @@ function doLookup(symbols) {
     });
     request.done(function (data) {
         try { console.log(data) } catch (e) { };
-        var quoteResultsDiv = $("#quoteResults");
-        var quote = data.query.results.quote;
-        quoteResultsDiv.empty();
-        var quoteHTML = "<table><tr><td><table class='quote-result-table'>";
-        var counter = 0;
-        var symbol;
-        $.each(quote, function (key, val) {
-            if (key != 'symbol') {
-                var row;
-                if (counter % 2 != 0) {
-                    row = "<tr style='background-color: #ccc;'>";
-                } else {
-                    row = "<tr>";
-                }
-                quoteHTML += row;
-                quoteHTML += "<th class='quote-result-cell'><span class='quote-result-label'>" + key + "</span></th><td class='quote-result-cell'><span>" + val + "</span></td>";
-                counter++;
-            } else {
-                symbol = val;
-            }
-        });
-        quoteHTML += "</table></td><td><div id='quote-results-options-div' class='quote-results-options-div'>" + generateOptionsButtonsHTML(symbol) + "</td></tr></table>";
-        quoteResultsDiv.append(quoteHTML);
-        quoteResultsDiv.show();
+        return data.query.results;
     });
     request.fail(function (jqXHR, textStatus) {
         try { console.log(jqXHR) } catch (e) { };
@@ -66,7 +76,7 @@ function showOptionsButtons(symbol) {
 }
 function addStockToPortfolioStart(symbol) {
     $("#quote-results-options-div").empty();
-    var html = "<input type=\"hidden\" id=\"symbol\" name=\"symbol\" value=\"" + symbol + "\"><p><span class=\"form_instrux_text\" >Price Paid: </span><input type=\"text\" id=\"pricePaid\" name=\"pricePaid\" /></p><p><span class=\"form_instrux_text\" >Number of Shares: </span><input type=\"text\" id=\"numberShares\" name=\"numberShares\" /></p><p><button class=\"button_primary\" onclick=\"javascript: addStockToPortfolioSubmit('" + symbol + "');\">submit</button><button class=\"button_secondary\" onclick=\"javascript: showOptionsButtons('" + symbol + "');\">cancel</button></p>";
+    var html = "<form id=\"addToPortfolio\" action=\"/Portfolio/Create\"><input type=\"hidden\" id=\"symbol\" name=\"symbol\" value=\"" + symbol + "\"><p><span class=\"form_instrux_text\" >Price Paid: </span><input type=\"text\" id=\"pricePaid\" name=\"pricePaid\" /></p><p><span class=\"form_instrux_text\" >Number of Shares: </span><input type=\"text\" id=\"numberShares\" name=\"numberShares\" /></p></form><p><button class=\"button_primary\" onclick=\"javascript: addStockToPortfolioSubmit('" + symbol + "');\">submit</button><button class=\"button_secondary\" onclick=\"javascript: showOptionsButtons('" + symbol + "');\">cancel</button></p>";
     $("#quote-results-options-div").html(html);
 }
 
@@ -80,12 +90,13 @@ function addStockToPortfolioSubmit() {
         return false;
     } else {
         pricePaid = Math.round(pricePaid * 100) / 100;
-        alert("symbol: " + symbol + " | pricePaid: " + pricePaid + " | number of shares: " + numberShares + ". What do we want to do here? Ajax submit? Form submit?");
+        $("#pricePaid").val(pricePaid);
+        $("#addToPortfolio").submit();
     }
 }
 
 function addStockToWatchlistSubmit(symbol) {
-    alert("symbol: " + symbol + ". What do we want to do here? Ajax submit? Form submit?");
+
 }
 
 function validateShares(shares) {

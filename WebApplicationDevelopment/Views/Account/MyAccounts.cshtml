@@ -1,8 +1,20 @@
-﻿@{
+﻿@using WebMatrix.Data;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+@using Owin;
+@{
+    //var connectionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename=C:\\Users\\Danny\\Documents\\GitHub\\BearMarket\\WebApplicationDevelopment\\App_Data\\Stocks.mdf;Integrated Security=True";
+    //var providerName = "System.Data.SqlClient";
+    //var db = Database.OpenConnectionString(connectionString, providerName);
+    var db = Database.Open("StocksDBContext");
+    var selectQueryString = "SELECT Symbol FROM portfolio WHERE UserId = '" + User.Identity.GetUserId() + "' ORDER BY Symbol"; 
+    var results = db.Query(selectQueryString);
+    var jaysahn = Json.Encode(results);
     ViewBag.Title = "Manage Your Account";
 }
 <h2>@ViewBag.Title.</h2>
-
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#portfolio" role="tab" data-toggle="tab">Portfolio</a></li>
@@ -27,11 +39,7 @@
             </div>
 
             <div class="panel-body">
-                <asp:Label ID="lblNoCurrentStocks" Text="User has not added any stocks" runat="server" Visible="False"></asp:Label>
                 <table class="table table-striped table-hover ">
-                    <asp:Repeater runat="server"
-                                  ID="CurrentStocksRepeater"
-                                  ItemType="Tuple<String, BullMarket.Models.CurrentStocks>">
                         <headertemplate>
                             <!-----------------------Table Headings----------------------------->
                             <thead>
@@ -48,27 +56,6 @@
                                 </tr>
                             </thead>
                         </headertemplate>
-                        <tbody>
-                            <itemtemplate>
-                                <tr>
-                                    <td><%#: Container.ItemIndex + 1 %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.Name %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.Symbol %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.InitValue %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.NumShares %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.CurrentValue %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.ChangeSincePurchase %></td>
-                                    <td><%#: Item.Item2.TagApplication.CurrentStock.DailyChange %></td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-xs btn-success"
-                                                onclick="javascript:location.href = 'dynamic link to yahoo=<%#: Item.Item2.CurrentStock.Link %>';">
-                                            Stock Page
-                                        </button>
-                                    </td>
-                                </tr>
-                            </itemtemplate>
-                        </tbody>
-                    </asp:Repeater>
                 </table>
             </div> <!--End of panel body-->
         </div> <!--End of panel-->
@@ -80,11 +67,7 @@
             </div>
 
             <div class="panel-body">
-                <asp:Label ID="lblNoPreviousStocks" Text="User has not sold/removed any stocks" runat="server" Visible="False"></asp:Label>
                 <table class="table table-striped table-hover ">
-                    <asp:Repeater runat="server"
-                                  ID="PreviousStocksRepeater"
-                                  ItemType="Tuple<String, BullMarket.Models.PreviousStocks>">
                         <headertemplate>
                             <!-----------------------Table Headings----------------------------->
                             <thead>
@@ -101,27 +84,6 @@
                                 </tr>
                             </thead>
                         </headertemplate>
-                        <tbody>
-                            <itemtemplate>
-                                <tr>
-                                    <td><%#: Container.ItemIndex + 1 %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.Name %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.Symbol %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.ValueAtSale %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.NumShares %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.CurrentValue %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.ChangeSinceSale %></td>
-                                    <td><%#: Item.Item2.TagApplication.PreviousStock.DailyChange %></td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-xs btn-success"
-                                                onclick="javascript:location.href = 'dynamic link to yahoo=<%#: Item.Item2.PreviousStock.Link %>';">
-                                            Stock Page
-                                        </button>
-                                    </td>
-                                </tr>
-                            </itemtemplate>
-                        </tbody>
-                    </asp:Repeater>
                 </table>
             </div> <!--End of panel body-->
         </div> <!--End of panel-->
@@ -139,5 +101,11 @@
 
 
 </div> <!--End of all tabs-->
-
-@Scripts.Render("~/bundles/AccountTabs")
+<script type="text/javascript">
+    var portfolioItems = eval(@Html.Raw(jaysahn));
+    var portfolioSymbols = new Array();
+    for (var i = 0; i < portfolioItems.length; i++) {
+        portfolioSymbols[i] = portfolioItems[i].Symbol;
+    }
+    refreshPortfolio(portfolioSymbols);
+</script>

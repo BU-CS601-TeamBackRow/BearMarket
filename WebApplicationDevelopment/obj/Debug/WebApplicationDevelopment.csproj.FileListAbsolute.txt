@@ -273,3 +273,7 @@ C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\Microso
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.csprojResolveAssemblyReference.cache
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.dll
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.pdb
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.dll
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.dll
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
