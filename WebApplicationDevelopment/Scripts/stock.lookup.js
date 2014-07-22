@@ -1,14 +1,17 @@
 ﻿function lookupStock() {
     var symbol = $("#lookupSymbol").val();
     var symbols = Array(symbol);
-    var data = doLookup(symbols);
+    doLookup(symbols, buildQuoteHTML);
+}
+
+function buildQuoteHTML(data){
+    //try { console.log(data) } catch (e) { };
     var quoteResultsDiv = $("#quoteResults");
-    var quote = data.quote;
     quoteResultsDiv.empty();
     var quoteHTML = "<table><tr><td><table class='quote-result-table'>";
     var counter = 0;
     var symbol;
-    $.each(quote, function (key, val) {
+    $.each(data.quote, function (key, val) {
         if (key != 'symbol') {
             var row;
             if (counter % 2 != 0) {
@@ -29,14 +32,59 @@
 }
 
 function refreshPortfolio(symbols) {
-    var data = doLookup(symbols);
-    try { console.log(data) } catch (e) { };
-    //$.each(data.query.results, function (obj) {
-    //    try { console.log(obj) } catch (e) { };
-    //});
+    doLookup(symbols, buildPortfolioHTML);
 }
 
-function doLookup(symbols) {
+function buildPortfolioHTML(dataArray) {
+    data = dataArray.quote;
+    try { console.log(data) } catch (e) { };
+    var html = "";
+    if ($.isArray(data) && data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var portfolioObject = getPortfolioObject(portfolioItems, data[i].symbol);
+            var gainLoss = (portfolioObject.SharesPurchase * data[i].LastTradePriceOnly) - (portfolioObject.SharesPurchase * portfolioObject.PricePaid);
+            var color = "green";
+            if (gainLoss < 0) {
+                color = "red";
+            }
+            var currentValue = portfolioObject.SharesPurchase * data[i].LastTradePriceOnly;
+            html += "<tr>";
+            html += "<td>" + data[i].Name + "</td>";
+            html += "<td>" + data[i].Symbol + "</td>";
+            html += "<td>" + data[i].Change + "</td>";
+            html += "<td>" + data[i].Volume + "</td>";
+            html += "<td>" + portfolioObject.SharesPurchase + "</td>";
+            html += "<td>" + portfolioObject.PricePaid + "</td>";
+            html += "<td>" + currentValue + "</td>";
+            html += "<td style=\"color: " + color + "\">" + gainLoss + "</td>";
+            html += "</tr>"
+        }
+    } else if ($.isPlainObject(data)) {
+        var portfolioObject = getPortfolioObject(portfolioItems, data.symbol);
+        var gainLoss = (portfolioObject.SharesPurchase * data.LastTradePriceOnly) - (portfolioObject.SharesPurchase * portfolioObject.PricePaid);
+        var color = "green";
+        if (gainLoss < 0) {
+            color = "red";
+        }
+        var currentValue = portfolioObject.SharesPurchase * data.LastTradePriceOnly;
+        html += "<tr>";
+        html += "<td>" + data.Name + "</td>";
+        html += "<td>" + data.Symbol + "</td>";
+        html += "<td>" + data.Change + "</td>";
+        html += "<td>" + data.Volume + "</td>";
+        html += "<td>" + portfolioObject.SharesPurchase + "</td>";
+        html += "<td>" + portfolioObject.PricePaid + "</td>";
+        html += "<td>" + currentValue + "</td>";
+        html += "<td style=\"color: " + color + "\">" + gainLoss + "</td>";
+        html += "</tr>"
+    } else {
+        html += "<tr><td colspan=\"8\">No stocks to display</td></tr>";
+    }
+    $("#portfolio_table_body").html(html);
+}
+
+function doLookup(symbols, callback) {
+    var $returnData;
     var baseUrl = 'https://query.yahooapis.com';
     var query = 'select * from yahoo.finance.quote where symbol in (';
     for (var i = 0; i < symbols.length; i++) {
@@ -48,20 +96,20 @@ function doLookup(symbols) {
     }
     query += ')';
     var endPoint = baseUrl + '/v1/public/yql?q=' + escape(query) + '&diagnostics=true&env=' + escape('store://datatables.org/alltableswithkeys') + '&format=json';
-    alert(query);
     var request = $.ajax({
         url: endPoint,
         type: 'GET',
         dataType: 'json',
     });
     request.done(function (data) {
-        try { console.log(data) } catch (e) { };
-        return data.query.results;
+        //try { console.log(data.query.results) } catch (e) { };
+        callback(data.query.results);
     });
     request.fail(function (jqXHR, textStatus) {
         try { console.log(jqXHR) } catch (e) { };
         alert("Request failed: " + jqXHR.statusText);
     });
+    return $returnData;
 }
 
 function generateOptionsButtonsHTML(symbol) {
@@ -91,7 +139,7 @@ function addStockToPortfolioSubmit() {
     } else {
         pricePaid = Math.round(pricePaid * 100) / 100;
         $("#pricePaid").val(pricePaid);
-        $("#addToPortfolio").submit();
+        addToPortfolio();
     }
 }
 
@@ -125,4 +173,35 @@ function validatePricePaid(pricePaid) {
         return false;
     }
     return true;
+}
+
+function getPortfolioObject(portfolioArray, symbol) {
+    for (var i = 0; i < portfolioArray.length; i++) {
+        if (portfolioArray[i].Symbol == symbol) {
+            return portfolioArray[i];
+        }
+    }
+    return false;
+}
+
+function addToPortfolio() {
+    var symbol = $("#symbol").val();
+    var pricePaid = $("#pricePaid").val();
+    var numberShares = $("#numberShares").val();
+    var data = { "Symbol": symbol, "PricePaid": pricePaid, "SharesPurchase": numberShares };
+    var url = "/api/portfolio/?Symbol=" + symbol + "&PricePaid=" + pricePaid + "&SharesPurchase=" + numberShares;
+    var request = $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+    });
+    request.done(function () {
+        portfolioItems[portfolioItems.length] = data;
+        portfolioSymbols[portfolioSymbols.length] = symbol;
+        refreshPortfolio(portfolioSymbols, buildPortfolioHTML);
+    });
+    request.fail(function (jqXHR, textStatus) {
+        try { console.log(jqXHR) } catch (e) { };
+        alert("Request failed: " + jqXHR.statusText);
+    });
 }

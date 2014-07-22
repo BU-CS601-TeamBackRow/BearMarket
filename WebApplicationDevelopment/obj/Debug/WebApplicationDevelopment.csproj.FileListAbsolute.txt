@@ -270,10 +270,16 @@ C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\Microso
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.csprojResolveAssemblyReference.cache
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.dll
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.pdb
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.dll
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.dll
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.dll
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.dll
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.dll
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.xml
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.xml
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
+C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.csprojResolveAssemblyReference.cache

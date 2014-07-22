@@ -5,11 +5,8 @@
 @using Microsoft.Owin.Security;
 @using Owin;
 @{
-    //var connectionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename=C:\\Users\\Danny\\Documents\\GitHub\\BearMarket\\WebApplicationDevelopment\\App_Data\\Stocks.mdf;Integrated Security=True";
-    //var providerName = "System.Data.SqlClient";
-    //var db = Database.OpenConnectionString(connectionString, providerName);
     var db = Database.Open("StocksDBContext");
-    var selectQueryString = "SELECT Symbol FROM portfolio WHERE UserId = '" + User.Identity.GetUserId() + "' ORDER BY Symbol"; 
+    var selectQueryString = "SELECT Symbol, PricePaid, SharesPurchase FROM portfolio WHERE UserId = '" + User.Identity.GetUserId() + "' ORDER BY Symbol"; 
     var results = db.Query(selectQueryString);
     var jaysahn = Json.Encode(results);
     ViewBag.Title = "Manage Your Account";
@@ -44,18 +41,22 @@
                             <!-----------------------Table Headings----------------------------->
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Name:</th>
                                     <th>Symbol:</th>
-                                    <th>Initial Value:</th>
-                                    <th># of Shares:</th>
+                                    <th>Day's Change</th>
+                                    <th>Volume</th>
+                                    <th>Number of Shares:</th>
+                                    <th>Purchase Value:</th>
                                     <th>Current Value:</th>
-                                    <th>Change Since Purchase:</th>
-                                    <th>Change Since Yesterday:</th>
-                                    <th>More Information:</th>
+                                    <th>Gain/Loss:</th>
                                 </tr>
                             </thead>
                         </headertemplate>
+                    <tbody id="portfolio_table_body">
+                        <tr>
+                            <td colspan="8">No stocks to display</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div> <!--End of panel body-->
         </div> <!--End of panel-->
