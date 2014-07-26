@@ -283,3 +283,13 @@ C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.xml
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
 C:\Users\Danny\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.csprojResolveAssemblyReference.cache
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.dll
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.dll
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.dll
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.dll
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.dll
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.xml
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.xml
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
+C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
