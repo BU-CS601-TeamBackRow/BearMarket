@@ -28,7 +28,16 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("My Accounts", "MyAccounts", "Account")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form">
+                            <input type="text" class="form-control" placeholder="Symbol Search" size="12">
+                        </form>
+                    </li>
+                    <li>
+                        @Html.Partial("_LoginPartial")
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
