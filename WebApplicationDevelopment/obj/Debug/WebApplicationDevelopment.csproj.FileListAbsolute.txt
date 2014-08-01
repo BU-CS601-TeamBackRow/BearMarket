@@ -293,3 +293,13 @@ C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.W
 C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
 C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
 C:\Users\Unstrung\Source\Repos\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.dll
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.dll
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.dll
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.dll
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.dll
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.xml
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.xml
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
+C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
