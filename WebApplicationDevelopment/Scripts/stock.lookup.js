@@ -35,52 +35,112 @@ function refreshPortfolio(symbols) {
     doLookup(symbols, buildPortfolioHTML);
 }
 
-function buildPortfolioHTML(dataArray) {
-    data = dataArray.quote;
-    try { console.log(data) } catch (e) { };
-    var html = "";
+function getQuoteDataObject(data, symbol) {
     if ($.isArray(data) && data.length > 0) {
         for (var i = 0; i < data.length; i++) {
-            var portfolioObject = getPortfolioObject(portfolioItems, data[i].symbol);
-            var gainLoss = (portfolioObject.SharesPurchase * data[i].LastTradePriceOnly) - (portfolioObject.SharesPurchase * portfolioObject.PricePaid);
-            var color = "green";
-            if (gainLoss < 0) {
-                color = "red";
+            if (data[i].symbol.toLowerCase() == symbol.toLowerCase()) {
+                return data[i];
             }
-            var currentValue = portfolioObject.SharesPurchase * data[i].LastTradePriceOnly;
+        }
+    } else if ($.isPlainObject(data)) {
+        return data;
+    }
+    return null;
+}
+
+function buildSoldPortfolioHTML(dataArray) {
+    quoteData = dataArray.quote;
+    var html = "";
+    if (portfolioItems.length > 0) {
+        for (var i = 0; i < portfolioItems.length; i++) {
+            var portfolioObject = portfolioItems[i];
+            if (typeof(portfolioObject.PriceSold) != "number") {
+                continue;
+            }
+            var data = getQuoteDataObject(quoteData, portfolioObject.Symbol);
+            var saleValue = Math.round((portfolioObject.SharesPurchase * portfolioObject.PriceSold) * 100) / 100;
+            var currentValue = Math.round((portfolioObject.SharesPurchase * data.LastTradePriceOnly) * 100) / 100;
+            var changeSinceSale = saleValue - currentValue;
+            var gainLoss = (portfolioObject.SharesPurchase * portfolioObject.PriceSold) - (portfolioObject.SharesPurchase * portfolioObject.PricePaid);
+
+            var svColor = "green";
+            if (gainLoss < 0) {
+                svColor = "red";
+            }
+            var dcColor = "green";
+            if (data.Change < 0) {
+                dcColor = "red";
+            }
+            var glColor = "green";
+            if (gainLoss < 0) {
+                glColor = "red";
+            }
+            var slsColor = "green";
+            var slsSymbol = "+";
+            if (changeSinceSale >= 0) {
+                slsColor = "red";
+                slsSymbol = "-";
+            }
             html += "<tr>";
-            html += "<td>" + data[i].Name + "</td>";
-            html += "<td>" + data[i].Symbol + "</td>";
-            html += "<td>" + data[i].Change + "</td>";
-            html += "<td>" + data[i].Volume + "</td>";
+            html += "<td>" + data.Name + "</td>";
+            html += "<td>" + data.Symbol + "</td>";
+            html += "<td style=\"color: " + dcColor + "\">" + data.Change + "</td>";
+            html += "<td>" + data.LastTradePriceOnly + "</td>";
+            html += "<td>" + portfolioObject.SharesPurchase + "</td>";
+            html += "<td>" + portfolioObject.PricePaid + "</td>";
+            html += "<td>" + portfolioObject.PriceSold + "</td>";
+            html += "<td>" + saleValue + "</td>";
+            html += "<td>" + currentValue + "</td>";
+            html += "<td style=\"color: " + glColor + "\">" + Math.round(gainLoss) + "</td>"
+            html += "<td style=\"color: " + slsColor + "\">" + slsSymbol + Math.abs(Math.round(changeSinceSale)) + "</td>";
+            html += "<td><span style=\"color: red; cursor: pointer;\" onclick=\"javascript: removeFromPortfolio('" + portfolioObject.Id + "');\">[x]</span></td>";
+            html += "</tr>"
+        }
+    } else {
+        html += "<tr><td colspan=\"8\">No stocks to display</td></tr>";
+    }
+    $("#sold_table_body").html(html);
+}
+
+function buildPortfolioHTML(dataArray) {
+    quoteData = dataArray.quote;
+    var html = "";
+    if (portfolioItems.length > 0) {
+        for (var i = 0; i < portfolioItems.length; i++) {
+            var portfolioObject = portfolioItems[i];
+            if (typeof(portfolioObject.PriceSold) == "number") {
+                continue;
+            }
+            var data = getQuoteDataObject(quoteData, portfolioObject.Symbol);
+            var gainLoss = Math.round(((portfolioObject.SharesPurchase * data.LastTradePriceOnly) - (portfolioObject.SharesPurchase * portfolioObject.PricePaid)) * 100) / 100;
+            var glColor = "green";
+            if (gainLoss < 0) {
+                glColor = "red";
+            }
+            var dcColor = "green";
+            if (data.Change < 0) {
+                dcColor = "red";
+            }
+            var currentValue = Math.round((portfolioObject.SharesPurchase * data.LastTradePriceOnly) * 100) / 100;
+            html += "<tr>";
+            html += "<td>" + data.Name + "</td>";
+            html += "<td>" + data.Symbol + "</td>";
+            html += "<td>" + data.LastTradePriceOnly + "</td>"
+            html += "<td style=\"color: " + dcColor + "\">" + data.Change + "</td>";
+            html += "<td>" + data.Volume + "</td>";
             html += "<td>" + portfolioObject.SharesPurchase + "</td>";
             html += "<td>" + portfolioObject.PricePaid + "</td>";
             html += "<td>" + currentValue + "</td>";
-            html += "<td style=\"color: " + color + "\">" + gainLoss + "</td>";
+            html += "<td style=\"color: " + glColor + "\">" + gainLoss + "</td>";
+            html += "<td><span style=\"color: red; cursor: pointer;\" onclick=\"javascript: sold('" + portfolioObject.Id + "');\">[$]</span></td>";
+            html += "<td><span style=\"color: red; cursor: pointer;\" onclick=\"javascript: removeFromPortfolio('" + portfolioObject.Id + "');\">[x]</span></td>";
             html += "</tr>"
         }
-    } else if ($.isPlainObject(data)) {
-        var portfolioObject = getPortfolioObject(portfolioItems, data.symbol);
-        var gainLoss = (portfolioObject.SharesPurchase * data.LastTradePriceOnly) - (portfolioObject.SharesPurchase * portfolioObject.PricePaid);
-        var color = "green";
-        if (gainLoss < 0) {
-            color = "red";
-        }
-        var currentValue = portfolioObject.SharesPurchase * data.LastTradePriceOnly;
-        html += "<tr>";
-        html += "<td>" + data.Name + "</td>";
-        html += "<td>" + data.Symbol + "</td>";
-        html += "<td>" + data.Change + "</td>";
-        html += "<td>" + data.Volume + "</td>";
-        html += "<td>" + portfolioObject.SharesPurchase + "</td>";
-        html += "<td>" + portfolioObject.PricePaid + "</td>";
-        html += "<td>" + currentValue + "</td>";
-        html += "<td style=\"color: " + color + "\">" + gainLoss + "</td>";
-        html += "</tr>"
     } else {
         html += "<tr><td colspan=\"8\">No stocks to display</td></tr>";
     }
     $("#portfolio_table_body").html(html);
+    buildSoldPortfolioHTML(dataArray);
 }
 
 function doLookup(symbols, callback) {
@@ -113,7 +173,10 @@ function doLookup(symbols, callback) {
 }
 
 function generateOptionsButtonsHTML(symbol) {
-    var html = "<p><button onclick=\"javascript: addStockToPortfolioStart('" + symbol + "');\" class=\"button_primary\">Add to Portfolio</button><button onclick=\"javascript: addStockToWatchlistSubmit('" + symbol + "');\" class=\"button_primary\">Add to Watchlist</button></p>";
+    var html = "<p>" 
+                + "<button onclick=\"javascript: addStockToPortfolioStart('" + symbol + "');\" class=\"button_primary\">Add to Portfolio</button>"
+                //+ "<button onclick=\"javascript: addStockToWatchlistSubmit('" + symbol + "');\" class=\"button_primary\">Add to Watchlist</button>"
+                + "</p>";
     return html;
 }
 
@@ -175,13 +238,22 @@ function validatePricePaid(pricePaid) {
     return true;
 }
 
-function getPortfolioObject(portfolioArray, symbol) {
+function getPortfolioObject(portfolioArray, id) {
     for (var i = 0; i < portfolioArray.length; i++) {
-        if (portfolioArray[i].Symbol == symbol) {
+        if (portfolioArray[i].Id == id) {
             return portfolioArray[i];
         }
     }
     return false;
+}
+
+function deletePortfolioObjectFromArray(id) {
+    for (var i = 0; i < portfolioItems.length; i++) {
+        if (portfolioItems[i].Id == id) {
+            portfolioItems.splice(i, 1);
+            portfolioSymbols.splice(i, 1);
+        }
+    }
 }
 
 function addToPortfolio() {
@@ -195,9 +267,48 @@ function addToPortfolio() {
         type: 'POST',
         data: data,
     });
-    request.done(function () {
+    request.done(function (result) {
+        data.Id = result;
         portfolioItems[portfolioItems.length] = data;
         portfolioSymbols[portfolioSymbols.length] = symbol;
+        refreshPortfolio(portfolioSymbols, buildPortfolioHTML);
+    });
+    request.fail(function (jqXHR, textStatus) {
+        try { console.log(jqXHR) } catch (e) { };
+        alert("Request failed: " + jqXHR.statusText);
+    });
+}
+
+function removeFromPortfolio(id) {
+    var data = { "Id": id };
+    var url = "/api/portfolio/?Id="+id;
+    var request = $.ajax({
+        url: url,
+        type: 'DELETE',
+        data: data,
+    });
+    request.done(function () {
+        deletePortfolioObjectFromArray(id);
+        refreshPortfolio(portfolioSymbols, buildPortfolioHTML);
+    });
+    request.fail(function (jqXHR, textStatus) {
+        try { console.log(jqXHR) } catch (e) { };
+        alert("Request failed: " + jqXHR.statusText);
+    });
+}
+
+function sold(id) {
+    var priceSold = prompt("At what price did you sell this holding?")
+    var data = { "Id": id, "PriceSold": priceSold };
+    var url = "/api/portfolio/?Id=" + id + "&PriceSold=" + priceSold;
+    var request = $.ajax({
+        url: url,
+        type: 'PUT',
+        data: data,
+    });
+    request.done(function () {
+        pO = getPortfolioObject(portfolioItems, id);
+        pO.PriceSold = priceSold;
         refreshPortfolio(portfolioSymbols, buildPortfolioHTML);
     });
     request.fail(function (jqXHR, textStatus) {

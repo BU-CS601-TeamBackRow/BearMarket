@@ -6,7 +6,7 @@
 @using Owin;
 @{
     var db = Database.Open("StocksDBContext");
-    var selectQueryString = "SELECT Symbol, PricePaid, SharesPurchase FROM portfolio WHERE UserId = '" + User.Identity.GetUserId() + "' ORDER BY Symbol"; 
+    var selectQueryString = "SELECT Id, Symbol, PricePaid, SharesPurchase, PriceSold FROM portfolio WHERE UserId = '" + User.Identity.GetUserId() + "' ORDER BY Symbol"; 
     var results = db.Query(selectQueryString);
     var jaysahn = Json.Encode(results);
     ViewBag.Title = "Manage Your Account";
@@ -41,20 +41,23 @@
                             <!-----------------------Table Headings----------------------------->
                             <thead>
                                 <tr>
-                                    <th>Name:</th>
-                                    <th>Symbol:</th>
+                                    <th>Name</th>
+                                    <th>Symbol</th>
+                                    <th>Current Price</th>
                                     <th>Day's Change</th>
                                     <th>Volume</th>
-                                    <th>Number of Shares:</th>
-                                    <th>Purchase Value:</th>
-                                    <th>Current Value:</th>
-                                    <th>Gain/Loss:</th>
+                                    <th>Number of Shares</th>
+                                    <th>Purchase Value</th>
+                                    <th>Current Value</th>
+                                    <th>Gain/Loss</th>
+                                    <th>Sold</th>
+                                    <th>Remove</th>
                                 </tr>
                             </thead>
                         </headertemplate>
                     <tbody id="portfolio_table_body">
                         <tr>
-                            <td colspan="8">No stocks to display</td>
+                            <td colspan="10">No stocks to display</td>
                         </tr>
                     </tbody>
                 </table>
@@ -73,18 +76,26 @@
                             <!-----------------------Table Headings----------------------------->
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Name:</th>
-                                    <th>Symbol:</th>
-                                    <th>Value at Sale:</th>
-                                    <th># of Shares:</th>
-                                    <th>Current Value:</th>
-                                    <th>Change Since Sale:</th>
-                                    <th>Change Since Yesterday:</th>
-                                    <th>More Information:</th>
+                                    <th>Name</th>
+                                    <th>Symbol</th>
+                                    <th>Day's Change</th>
+                                    <th>Current Price</th>
+                                    <th># of Shares</th>
+                                    <th>Price Paid</th>
+                                    <th>Sale Price</th>
+                                    <th>Value at Sale</th>
+                                    <th>Current Value</th>
+                                    <th>Realized Gain/Loss</th>
+                                    <th>Change Since Sale</th>
+                                    <th>Remove</th>
                                 </tr>
                             </thead>
                         </headertemplate>
+                        <tbody id="sold_table_body">
+                            <tr>
+                               <td colspan="11">No stocks to display</td>
+                            </tr>
+                        </tbody>
                 </table>
             </div> <!--End of panel body-->
         </div> <!--End of panel-->
@@ -108,5 +119,7 @@
     for (var i = 0; i < portfolioItems.length; i++) {
         portfolioSymbols[i] = portfolioItems[i].Symbol;
     }
-    refreshPortfolio(portfolioSymbols);
+    if (portfolioSymbols.length > 0) {
+        refreshPortfolio(portfolioSymbols);
+    }
 </script>
