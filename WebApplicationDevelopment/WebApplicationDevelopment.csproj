@@ -209,6 +209,7 @@
     <Content Include="Images\BullMarket.jpg" />
     <Content Include="Images\DCole.jpg" />
     <Content Include="Images\JGreen.jpg" />
+    <Content Include="Images\StockTicker.jpg" />
     <Content Include="Images\TMerrell.jpg" />
     <Content Include="Scripts\AccountTabs.js" />
     <Content Include="Scripts\bootstrap.js" />
