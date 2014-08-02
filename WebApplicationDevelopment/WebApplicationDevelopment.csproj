@@ -217,6 +217,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\stock.utils.js" />
+    <Content Include="Scripts\stock.quote.js" />
+    <Content Include="Scripts\stock.watchlist.js" />
+    <Content Include="Scripts\stock.portfolio.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
