@@ -27,9 +27,8 @@ namespace WebApplicationDevelopment.Controllers
             try
             {
                 //Load Form variables into NameValueCollection variable.
-                var coll = Request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);                // TODO: Add insert logic here
-                string connectionString = "Data Source=(LocalDB)\\v11.0;AttachDbFilename=C:\\Users\\Danny\\Documents\\GitHub\\BearMarket\\WebApplicationDevelopment\\App_Data\\Stocks.mdf;Integrated Security=True";
-
+                var coll = Request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["StocksDBContext"].ConnectionString;
                 // Provide the query string with a parameter placeholder. 
                 string queryString =
                     "INSERT INTO dbo.portfolio Output inserted.Id "
@@ -83,7 +82,7 @@ namespace WebApplicationDevelopment.Controllers
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        System.Windows.Forms.MessageBox.Show(ex.Message);
                         HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.InternalServerError, "value");
                         return response;
                     }
