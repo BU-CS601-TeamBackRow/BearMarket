@@ -35,6 +35,10 @@ function refreshPortfolio(symbols) {
     doLookup(symbols, buildPortfolioHTML);
 }
 
+function refreshWatchlist(symbols) {
+    doLookup(symbols, buildWatchlistHTML);
+}
+
 function getQuoteDataObject(data, symbol) {
     if ($.isArray(data) && data.length > 0) {
         for (var i = 0; i < data.length; i++) {
@@ -143,39 +147,74 @@ function buildPortfolioHTML(dataArray) {
     buildSoldPortfolioHTML(dataArray);
 }
 
-function doLookup(symbols, callback) {
-    var $returnData;
-    var baseUrl = 'https://query.yahooapis.com';
-    var query = 'select * from yahoo.finance.quote where symbol in (';
-    for (var i = 0; i < symbols.length; i++) {
-        if (i > 0) {
-            query += ',\'' + symbols[i] + '\'';
-        } else {
-            query += '\'' + symbols[i] + '\'';
+function buildWatchlistHTML(dataArray) {
+    quoteData = dataArray.quote;
+    var html = "";
+    if (watchlistItems.length > 0) {
+        for (var i = 0; i < watchlistItems.length; i++) {
+            var watchlistObject = watchlistItems[i];
+            if (typeof (watchlistObject.PriceSold) == "number") {
+                continue;
+            }
+            var data = getQuoteDataObject(quoteData, watchlistObject.Symbol);
+            var dcColor = "green";
+            if (data.Change < 0) {
+                dcColor = "red";
+            }
+            html += "<tr>";
+            html += "<td>" + data.Name + "</td>";
+            html += "<td>" + data.Symbol + "</td>";
+            html += "<td>" + data.LastTradePriceOnly + "</td>"
+            html += "<td style=\"color: " + dcColor + "\">" + data.Change + "</td>";
+            html += "<td>" + data.Volume + "</td>";
+            html += "<td><span style=\"color: red; cursor: pointer;\" onclick=\"javascript: transferToPortfolio('" + watchlistObject.Id + "');\">[^]</span></td>";
+            html += "<td><span style=\"color: red; cursor: pointer;\" onclick=\"javascript: removeFromWatchlist('" + watchlistObject.Id + "', true);\">[x]</span></td>";
+            html += "</tr>"
         }
+    } else {
+        html += "<tr><td colspan=\"8\">No stocks to display</td></tr>";
     }
-    query += ')';
-    var endPoint = baseUrl + '/v1/public/yql?q=' + escape(query) + '&diagnostics=true&env=' + escape('store://datatables.org/alltableswithkeys') + '&format=json';
-    var request = $.ajax({
-        url: endPoint,
-        type: 'GET',
-        dataType: 'json',
-    });
-    request.done(function (data) {
-        //try { console.log(data.query.results) } catch (e) { };
-        callback(data.query.results);
-    });
-    request.fail(function (jqXHR, textStatus) {
-        try { console.log(jqXHR) } catch (e) { };
-        alert("Request failed: " + jqXHR.statusText);
-    });
-    return $returnData;
+    $("#watchlist_table_body").html(html);
+}
+
+function doLookup(symbols, callback) {
+    if(symbols.length > 0){
+        var $returnData;
+        var baseUrl = 'https://query.yahooapis.com';
+        var query = 'select * from yahoo.finance.quote where symbol in (';
+        for (var i = 0; i < symbols.length; i++) {
+            if (i > 0) {
+                query += ',\'' + symbols[i] + '\'';
+            } else {
+                query += '\'' + symbols[i] + '\'';
+            }
+        }
+        query += ')';
+        var endPoint = baseUrl + '/v1/public/yql?q=' + escape(query) + '&diagnostics=true&env=' + escape('store://datatables.org/alltableswithkeys') + '&format=json';
+        var request = $.ajax({
+            url: endPoint,
+            type: 'GET',
+            dataType: 'json',
+        });
+        request.done(function (data) {
+            //try { console.log(data.query.results) } catch (e) { };
+            callback(data.query.results);
+        });
+        request.fail(function (jqXHR, textStatus) {
+            try { console.log(jqXHR) } catch (e) { };
+            alert("Request failed: " + jqXHR.statusText);
+        });
+    } else {
+        var data = new Object();
+        data.quote = null;
+        callback(data);
+    }
 }
 
 function generateOptionsButtonsHTML(symbol) {
     var html = "<p>" 
                 + "<button onclick=\"javascript: addStockToPortfolioStart('" + symbol + "');\" class=\"button_primary\">Add to Portfolio</button>"
-                //+ "<button onclick=\"javascript: addStockToWatchlistSubmit('" + symbol + "');\" class=\"button_primary\">Add to Watchlist</button>"
+                + "<button onclick=\"javascript: addStockToWatchlistSubmit('" + symbol + "');\" class=\"button_primary\">Add to Watchlist</button>"
                 + "</p>";
     return html;
 }
@@ -207,7 +246,23 @@ function addStockToPortfolioSubmit() {
 }
 
 function addStockToWatchlistSubmit(symbol) {
-
+    var data = { "Symbol": symbol};
+    var url = "/api/watchlist/?Symbol=" + symbol;
+    var request = $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+    });
+    request.done(function (result) {
+        data.Id = result;
+        watchlistItems[watchlistItems.length] = data;
+        watchlistSymbols[watchlistSymbols.length] = symbol;
+        refreshWatchlist(watchlistSymbols, buildWatchlistHTML);
+    });
+    request.fail(function (jqXHR, textStatus) {
+        try { console.log(jqXHR) } catch (e) { };
+        alert("Request failed: " + jqXHR.statusText);
+    });
 }
 
 function validateShares(shares) {
@@ -256,11 +311,39 @@ function deletePortfolioObjectFromArray(id) {
     }
 }
 
-function addToPortfolio() {
-    var symbol = $("#symbol").val();
-    var pricePaid = $("#pricePaid").val();
-    var numberShares = $("#numberShares").val();
+function getWatchlistObject(watchlistArray, id) {
+    for (var i = 0; i < watchlistArray.length; i++) {
+        if (watchlistArray[i].Id == id) {
+            return watchlistArray[i];
+        }
+    }
+    return false;
+}
+
+function deleteWatchlistObjectFromArray(id) {
+    for (var i = 0; i < watchlistItems.length; i++) {
+        if (watchlistItems[i].Id == id) {
+            watchlistItems.splice(i, 1);
+            watchlistSymbols.splice(i, 1);
+        }
+    }
+}
+
+function addToPortfolio(fnsymbol, fnnumberShares, fnpricePaid) {
+    var symbol;
+    var pricePaid;
+    var numberShares;
+    if (fnsymbol != null && fnnumberShares != null && fnpricePaid != null) {
+        symbol = fnsymbol;
+        pricePaid = fnpricePaid;
+        numberShares = fnnumberShares;
+    } else {
+        symbol = $("#symbol").val();
+        pricePaid = $("#pricePaid").val();
+        numberShares = $("#numberShares").val();
+    }
     var data = { "Symbol": symbol, "PricePaid": pricePaid, "SharesPurchase": numberShares };
+    try { console.log(data); } catch (e) { };
     var url = "/api/portfolio/?Symbol=" + symbol + "&PricePaid=" + pricePaid + "&SharesPurchase=" + numberShares;
     var request = $.ajax({
         url: url,
@@ -308,8 +391,38 @@ function sold(id) {
     });
     request.done(function () {
         pO = getPortfolioObject(portfolioItems, id);
-        pO.PriceSold = priceSold;
+        pO.PriceSold = parseInt(priceSold);
+        try { console.log(pO); } catch (e) { };
         refreshPortfolio(portfolioSymbols, buildPortfolioHTML);
+    });
+    request.fail(function (jqXHR, textStatus) {
+        try { console.log(jqXHR) } catch (e) { };
+        alert("Request failed: " + jqXHR.statusText);
+    });
+}
+
+function transferToPortfolio(id) {
+    var watchlistObject = getWatchlistObject(watchlistItems, id);
+    var symbol = watchlistObject.Symbol;
+    var numberShares = prompt("How many shares did you purchase?");
+    var pricePaid = prompt("At what price did you purchase your shares?");
+    removeFromWatchlist(id, true);
+    addToPortfolio(symbol, numberShares, pricePaid);
+}
+
+function removeFromWatchlist(id, refresh) {
+    var data = { "Id": id };
+    var url = "/api/watchlist/?Id=" + id;
+    var request = $.ajax({
+        url: url,
+        type: 'DELETE',
+        data: data,
+    });
+    request.done(function () {
+        deleteWatchlistObjectFromArray(id);
+        if (refresh == true) {
+            refreshWatchlist(watchlistSymbols, buildWatchlistHTML);
+        }
     });
     request.fail(function (jqXHR, textStatus) {
         try { console.log(jqXHR) } catch (e) { };

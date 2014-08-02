@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
+    <Compile Include="Controllers\WatchlistController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,7 @@
     <Compile Include="Models\PortfolioModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Stocks.cs" />
+    <Compile Include="Models\WatchlistModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\Fetcher.cs" />
