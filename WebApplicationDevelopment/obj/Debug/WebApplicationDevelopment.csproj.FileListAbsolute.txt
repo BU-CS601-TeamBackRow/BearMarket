@@ -303,3 +303,16 @@ C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.
 C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
 C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
 C:\Users\Trent\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.dll
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.dll
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.dll
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.dll
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.dll
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Net.Http.Formatting.xml
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.xml
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\System.Web.Http.WebHost.xml
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.Data.xml
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\bin\WebMatrix.WebData.xml
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.Migrations.InitialCreate.resources
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.csproj.GenerateResource.Cache
+C:\Users\JT\Documents\GitHub\BearMarket\WebApplicationDevelopment\obj\Debug\WebApplicationDevelopment.Migrations.UserName.resources

@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
 @using WebApplicationDevelopment.Models
-@model LoginViewModel
 
 @if (Request.IsAuthenticated)
 {
@@ -10,7 +9,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Welcome, " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
@@ -18,6 +17,7 @@
 }
 else
 {
+    @model LoginViewModel
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li class="dropdown">
